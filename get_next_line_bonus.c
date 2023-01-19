@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gemartin <gemartin@student.42barc...>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/07 00:41:32 by gemartin          #+#    #+#             */
-/*   Updated: 2022/07/07 16:41:52 by gemartin         ###   ########.fr       */
+/*   Created: 2022/03/02 12:42:12 by gemartin          #+#    #+#             */
+/*   Updated: 2022/03/02 14:36:32 by gemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_free(char **str)
 {
@@ -26,18 +26,18 @@ char	*clean_storage(char *storage)
 	int		len;
 
 	ptr = ft_strchr(storage, '\n');
-	if (ptr == 0)
+	if (!ptr)
 	{
 		new_storage = NULL;
 		return (ft_free(&storage));
 	}
 	else
 		len = (ptr - storage) + 1;
-	if (storage[len] == 0)
+	if (!storage[len])
 		return (ft_free(&storage));
 	new_storage = ft_substr(storage, len, ft_strlen(storage) - len);
 	ft_free(&storage);
-	if (new_storage == 0)
+	if (!new_storage)
 		return (NULL);
 	return (new_storage);
 }
@@ -63,11 +63,10 @@ char	*readbuf(int fd, char *storage)
 
 	rid = 1;
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (buffer == 0)
+	if (!buffer)
 		return (ft_free(&storage));
 	buffer[0] = '\0';
-	// while (rid > 0 && ft_strchr(buffer, '\n') == 0)
-	while (rid > 0)
+	while (rid > 0 && !ft_strchr(buffer, '\n'))
 	{
 		rid = read (fd, buffer, BUFFER_SIZE);
 		if (rid > 0)
@@ -84,18 +83,18 @@ char	*readbuf(int fd, char *storage)
 
 char	*get_next_line(int fd)
 {
-	static char	*storage = {0};
+	static char	*storage[OPEN_MAX];
 	char		*line;
 
 	if (fd < 0)
 		return (NULL);
-	if ((storage != 0 && ft_strchr(storage, '\n')) == 0 || storage == 0)
-		storage = readbuf (fd, storage);
-	if (storage == 0)
+	if ((storage[fd] && !ft_strchr(storage[fd], '\n')) || !storage[fd])
+		storage[fd] = readbuf (fd, storage[fd]);
+	if (!storage[fd])
 		return (NULL);
-	line = new_line(storage);
-	if (line == 0)
-		return (ft_free(&storage));
-	storage = clean_storage(storage);
+	line = new_line(storage[fd]);
+	if (!line)
+		return (ft_free(&storage[fd]));
+	storage[fd] = clean_storage(storage[fd]);
 	return (line);
 }
