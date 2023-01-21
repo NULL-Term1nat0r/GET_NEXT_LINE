@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gemartin <gemartin@student.42barc...>      +#+  +:+       +#+        */
+/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 00:41:32 by gemartin          #+#    #+#             */
-/*   Updated: 2022/03/02 12:48:07 by gemartin         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:56:48 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nextline.c                                         :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gemartin <gemartin@student.42barc...>      +#+  +:+       +#+        */
+/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 12:58:22 by gemartin          #+#    #+#             */
-/*   Updated: 2022/03/02 14:38:29 by marvin           ###   ########.fr       */
+/*   Created: 2023/01/20 13:48:14 by estruckm          #+#    #+#             */
+/*   Updated: 2023/01/20 13:49:24 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	i;
 	size_t	c;
 
-	if (!s1)
+	if (s1 == 0)
 	{
 		s1 = malloc(sizeof(char) + 1);
-		if (!s1)
+		if (s1 == 0)
 			return (0);
 		s1[0] = 0;
 	}
 	str = (char *)malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
+	if (str == 0)
 		return (ft_free(&s1));
 	i = -1;
-	while (s1[++i])
+	while (s1[++i] != 0)
 		str[i] = s1[i];
 	c = -1;
-	while (s2[++c])
+	while (s2[++c] != 0)
 		str[i + c] = s2[c];
 	str[i + c] = '\0';
 	free(s1);
@@ -52,36 +52,26 @@ size_t	ft_strlen(char *s)
 char	*ft_strchr(char *s, int c)
 {
 	while (*s != (unsigned char)c)
-		if (!*s++)
+		if (*s++ == 0)
 			return (0);
 	return ((char *)s);
 }
 
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	char	*res;
+	char	*p;
 
-	i = 0;
-	if (!s)
+	if (s == 0)
 		return (0);
-	if (start > ft_strlen(s))
-	{
-		res = malloc(sizeof(char) * (1));
-		if (!res)
-			return (NULL);
-		res[0] = '\0';
-		return (res);
-	}
-	if (ft_strlen(s) - start < len)
-		len = ft_strlen(s) - start;
-	res = malloc(sizeof(char) * (len + 1));
-	if (!res)
+	if (ft_strlen(s) < start)
+		len = 0;
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	p = malloc((len + 1));
+	if (p == 0)
 		return (NULL);
-	while (start < ft_strlen(s) && i < len && s[start])
-		res[i++] = s[start++];
-	res[i] = '\0';
-	return (res);
+	ft_strlcpy(p, s + start, len +1);
+	return (p);
 }
 
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
@@ -91,7 +81,7 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 	i = 0;
 	if (dstsize == 0)
 	{
-		while (src[i])
+		while (src[i] != 0)
 			i++;
 		return (i);
 	}
@@ -102,7 +92,7 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 	}
 	if (i < dstsize)
 		dst[i] = '\0';
-	while (src[i])
+	while (src[i] != 0)
 		i++;
 	return (i);
 }

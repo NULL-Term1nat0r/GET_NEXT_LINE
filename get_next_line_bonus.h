@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gemartin <gemartin@student.42barc...>      +#+  +:+       +#+        */
+/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:53:00 by gemartin          #+#    #+#             */
-/*   Updated: 2022/03/02 13:45:14 by gemartin         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:56:22 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gemartin <gemartin@student.42barc...>      +#+  +:+       +#+        */
+/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:55:42 by gemartin          #+#    #+#             */
-/*   Updated: 2022/03/03 18:50:14 by gemartin         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:54:48 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

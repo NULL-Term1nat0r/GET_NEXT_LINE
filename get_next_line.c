@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gemartin <gemartin@student.42barc...>      +#+  +:+       +#+        */
+/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 00:41:32 by gemartin          #+#    #+#             */
-/*   Updated: 2022/07/07 16:41:52 by gemartin         ###   ########.fr       */
+/*   Updated: 2023/01/20 14:06:30 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*clean_storage(char *storage)
 	int		len;
 
 	ptr = ft_strchr(storage, '\n');
-	if (ptr == 0)
+	if (ptr == NULL)
 	{
 		new_storage = NULL;
 		return (ft_free(&storage));
@@ -51,12 +51,12 @@ char	*new_line(char *storage)
 	ptr = ft_strchr(storage, '\n');
 	len = (ptr - storage) + 1;
 	line = ft_substr(storage, 0, len);
-	if (!line)
+	if (line == 0)
 		return (NULL);
 	return (line);
 }
 
-char	*readbuf(int fd, char *storage)
+char	*read_file(int fd, char *storage)
 {
 	int		rid;
 	char	*buffer;
@@ -66,8 +66,7 @@ char	*readbuf(int fd, char *storage)
 	if (buffer == 0)
 		return (ft_free(&storage));
 	buffer[0] = '\0';
-	// while (rid > 0 && ft_strchr(buffer, '\n') == 0)
-	while (rid > 0)
+	while (rid > 0 && ft_strchr(buffer, '\n') == 0)
 	{
 		rid = read (fd, buffer, BUFFER_SIZE);
 		if (rid > 0)
@@ -89,8 +88,8 @@ char	*get_next_line(int fd)
 
 	if (fd < 0)
 		return (NULL);
-	if ((storage != 0 && ft_strchr(storage, '\n')) == 0 || storage == 0)
-		storage = readbuf (fd, storage);
+	if ((storage != 0 && ft_strchr(storage, '\n') == 0) || storage == 0)
+		storage = read_file(fd, storage);
 	if (storage == 0)
 		return (NULL);
 	line = new_line(storage);
