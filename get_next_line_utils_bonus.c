@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 12:55:42 by gemartin          #+#    #+#             */
-/*   Updated: 2023/01/20 13:54:48 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/01/21 14:20:02 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,27 +67,40 @@ char	*ft_strchr(char *s, int c)
 
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {
+	char	*p;
+
+	if (s == 0)
+		return (0);
+	if (ft_strlen(s) < start)
+		len = 0;
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	p = malloc((len + 1));
+	if (p == 0)
+		return (NULL);
+	ft_strlcpy(p, s + start, len +1);
+	return (p);
+}
+
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
+{
 	size_t	i;
-	char	*res;
 
 	i = 0;
-	if (!s)
-		return (0);
-	if (start > ft_strlen(s))
+	if (dstsize == 0)
 	{
-		res = malloc(sizeof(char) * (1));
-		if (!res)
-			return (NULL);
-		res[0] = '\0';
-		return (res);
+		while (src[i] != 0)
+			i++;
+		return (i);
 	}
-	if (ft_strlen(s) - start < len)
-		len = ft_strlen(s) - start;
-	res = malloc(sizeof(char) * (len + 1));
-	if (!res)
-		return (NULL);
-	while (start < ft_strlen(s) && i < len && s[start])
-		res[i++] = s[start++];
-	res[i] = '\0';
-	return (res);
+	while (i < dstsize - 1 && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	if (i < dstsize)
+		dst[i] = '\0';
+	while (src[i] != 0)
+		i++;
+	return (i);
 }
